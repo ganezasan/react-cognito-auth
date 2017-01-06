@@ -1,0 +1,1 @@
+# serverless-cognito-auth
