@@ -1,0 +1,38 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-weight: 300; }
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+  font-weight: 300;
+  height: 100%; }
+  body ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    font-weight: 300; }
+  body :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    opacity: 1;
+    font-weight: 300; }
+  body ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    opacity: 1;
+    font-weight: 300; }
+  body :-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    font-weight: 300; }
+
+.error {
+  color: #F44336;
+  font-size: 1.2em; }
