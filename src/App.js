@@ -1,5 +1,6 @@
 import React, { PropTypes,Component } from 'react';
-import { BrowserRouter, Match } from 'react-router';
+import {Route, Switch} from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import './App.css';
 import { Login, Private, Private2, Dialog } from './containers';
@@ -40,9 +41,9 @@ class App extends Component {
   render() {
     const { auth } = this.props;
 
-    const MatchWithAuth = ({ component: Component, ...rest }) => (
-      <Match {...rest} render={props => {
-        if(auth.pathname && props.pathname !== auth.pathname){
+    const RouteWithAuth = ({ component: Component, ...rest }) => (
+      <Route {...rest} render={props => {
+        if(auth.pathname && props.location.pathname !== auth.pathname){
           this.props.dispatch(fetchLoginState({ pathname: props.pathname, auth: auth }));
         }
         return (auth.isLoggedIn && rest.private) || !rest.private ?
@@ -52,15 +53,12 @@ class App extends Component {
 
     return (
       <div className="wrapper">
-        <BrowserRouter>
-          {({router, location}) => (
-            <div style={{height: '100%'}}>
-              <MatchWithAuth pattern="/" exactly private component={() => <Private router={router} />}/>
-              <MatchWithAuth pattern="/login"  component={() => <Login router={router} />}/>
-              <MatchWithAuth pattern="/private2" private component={() => <Private2 router={router} />}/>
-            </div>
-          )}
-        </BrowserRouter>
+        <Switch>
+
+              <RouteWithAuth path="/" exact private component={() => <Private />}/>
+              <RouteWithAuth path="/login" exact component={() => <Login />}/>
+              <RouteWithAuth path="/private2" exact private component={() => <Private2 />}/>
+
         <ul className="bg-bubbles">
           <li></li>
           <li></li>
@@ -73,6 +71,7 @@ class App extends Component {
           <li></li>
           <li></li>
         </ul>
+        </Switch>
       </div>
     );
   }
