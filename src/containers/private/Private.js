@@ -1,14 +1,14 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { clickLogout, hello } from '../../redux/auth/actions/auth';
 
 const propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 class Private extends Component {
-
   handleSignOut = this.handleSignOut.bind(this);
   handleSignOut(e) {
     e.preventDefault();
@@ -16,15 +16,17 @@ class Private extends Component {
   }
 
   handleHello = this.handleHello.bind(this);
-  handleHello(e){
+  handleHello(e) {
     e.preventDefault();
-    this.props.dispatch(hello({jwt: this.props.auth.jwt, path: 'hello'}));
+    this.props.dispatch(hello({ jwt: this.props.auth.jwt, path: 'hello' }));
   }
 
   handleGoodNight = this.handleGoodNight.bind(this);
-  handleGoodNight(e){
+  handleGoodNight(e) {
     e.preventDefault();
-    this.props.dispatch(hello({jwt: this.props.auth.jwt, path: 'good-night'}));
+    this.props.dispatch(
+      hello({ jwt: this.props.auth.jwt, path: 'good-night' })
+    );
   }
 
   render() {
@@ -33,12 +35,20 @@ class Private extends Component {
     return (
       <div className="container">
         <h1>Private</h1>
-        { hello && <h2>{hello.Message}</h2> }
+        {hello && <h2>{hello.Message}</h2>}
         <form className="form">
-          <Link to='private2' className='button'>Private2</Link>
-          <button className='button' onClick={this.handleSignOut}>Logout</button>
-          <button className='button' onClick={this.handleHello}>Hello</button>
-          <button className='button' onClick={this.handleGoodNight}>GoodNight</button>
+          <Link to="private2" className="button">
+            Private2
+          </Link>
+          <button className="button" onClick={this.handleSignOut}>
+            Logout
+          </button>
+          <button className="button" onClick={this.handleHello}>
+            Hello
+          </button>
+          <button className="button" onClick={this.handleGoodNight}>
+            GoodNight
+          </button>
         </form>
       </div>
     );

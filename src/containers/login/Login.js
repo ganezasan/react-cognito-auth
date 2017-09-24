@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchUser } from '../../redux/auth/actions/auth';
 
+const propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  auth: PropTypes.object
+};
+
 class Login extends Component {
-  state={
+  state = {
     email: '',
     password: ''
-  }
+  };
 
   handleSignIn = this.handleSignIn.bind(this);
   handleSignIn(e) {
     e.preventDefault();
     const { email, password } = this.state;
-    this.props.dispatch(fetchUser({email, password}))
+    this.props.dispatch(fetchUser({ email, password }));
   }
 
   handleChange(column, value) {
@@ -31,9 +37,19 @@ class Login extends Component {
         <h1>Cognito User Pool Login</h1>
 
         {auth.error && <p className="error">{auth.error}</p>}
-        <form className="form" onSubmit={(e) => this.handleSignIn(e)}>
-          <input type="text" placeholder="Username" value={email} onChange={(e) => this.handleChange('email', e.target.value)}/>
-          <input type="password" placeholder="Password" value={password} onChange={(e) => this.handleChange('password', e.target.value)}/>
+        <form className="form" onSubmit={e => this.handleSignIn(e)}>
+          <input
+            type="text"
+            placeholder="Username"
+            value={email}
+            onChange={e => this.handleChange('email', e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => this.handleChange('password', e.target.value)}
+          />
           <button type="submit">Login</button>
         </form>
       </div>
@@ -44,5 +60,7 @@ class Login extends Component {
 function select({ auth }) {
   return { auth };
 }
+
+Login.propTypes = propTypes;
 
 export default connect(select)(Login);

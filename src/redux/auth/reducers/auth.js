@@ -14,7 +14,7 @@ const initial = {
     isPrepared: false,
     isLoggedIn: false,
     user: {
-      project: '',
+      project: ''
     },
     isFetching: false,
     error: undefined,
@@ -24,43 +24,50 @@ const initial = {
   }
 };
 
-const authReducer = createReducer({
-  [failFetchingLoginState]: (state, payload) => Object.assign({}, initial, {
-    isPrepared: true,
-    pathname: payload.pathname
-  }),
-  [fetchUser]: state => Object.assign({}, state, {
-    isFetching: true,
-    error: undefined
-  }),
-  [failFetchingUser]: (state, err) => Object.assign({}, state, {
-    isFetching: false,
-    error: err
-  }),
-  [login]: (state, payload) => {
-    return Object.assign({}, state, {
-      isPrepared: true,
-      isLoggedIn: true,
-      user: payload.user || state.user,
-      isFetching: false,
-      error: undefined,
-      jwt: payload.jwt,
-      pathname: payload.pathname
-    });
+const authReducer = createReducer(
+  {
+    [failFetchingLoginState]: (state, payload) =>
+      Object.assign({}, initial, {
+        isPrepared: true,
+        pathname: payload.pathname
+      }),
+    [fetchUser]: state =>
+      Object.assign({}, state, {
+        isFetching: true,
+        error: undefined
+      }),
+    [failFetchingUser]: (state, err) =>
+      Object.assign({}, state, {
+        isFetching: false,
+        error: err
+      }),
+    [login]: (state, payload) => {
+      return Object.assign({}, state, {
+        isPrepared: true,
+        isLoggedIn: true,
+        user: payload.user || state.user,
+        isFetching: false,
+        error: undefined,
+        jwt: payload.jwt,
+        pathname: payload.pathname
+      });
+    },
+    [logout]: () =>
+      Object.assign({}, initial.auth, {
+        isPrepared: true
+      }),
+    [failFetchingApi]: (state, err) => {
+      return Object.assign({}, state, {
+        error: err
+      });
+    },
+    [fetchHello]: (state, payload) => {
+      return Object.assign({}, state, {
+        hello: payload
+      });
+    }
   },
-  [logout]: () => Object.assign({}, initial.auth, {
-    isPrepared: true
-  }),
-  [failFetchingApi]: (state, err) => {
-    return Object.assign({}, state, {
-      error: err
-    });
-  },
-  [fetchHello]: (state, payload) => {
-    return Object.assign({}, state, {
-      hello: payload
-    });
-  },
-}, initial.auth);
+  initial.auth
+);
 
 export default authReducer;
