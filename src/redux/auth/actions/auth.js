@@ -10,7 +10,6 @@ export const login = createAction('login');
 export const clickLogout = createAction('click logout');
 export const logout = createAction('logout');
 
-
 export const failFetchingApi = createAction('fail fetching api');
 
 export const hello = createAction('hello');

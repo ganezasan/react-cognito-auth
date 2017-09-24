@@ -18,7 +18,7 @@ function InitialLoading() {
   return (
     <div className="loading-wrap" style={loadingWrapStyle}>
       <div style={loadingStyle}>
-        <Loading type='bars' color='#8BC34A' />
+        <Loading type="bars" color="#8BC34A" />
       </div>
     </div>
   );

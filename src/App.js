@@ -1,5 +1,7 @@
-import React, { PropTypes,Component } from 'react';
-import { BrowserRouter, Match } from 'react-router';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Route, Switch, withRouter } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import './App.css';
 import { Login, Private, Private2, Dialog } from './containers';
@@ -7,7 +9,7 @@ import { fetchLoginState } from './redux/auth/actions/auth';
 
 const propTypes = {
   dispatch: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 class App extends Component {
@@ -18,7 +20,9 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { auth } = nextProps;
-    if(auth) { this.guestWillTransfer(auth); }
+    if (auth) {
+      this.guestWillTransfer(auth);
+    }
   }
 
   guestWillTransfer(auth) {
@@ -26,7 +30,7 @@ class App extends Component {
 
     if (!auth.isLoggedIn && pathname !== '/login') {
       this.transferPage('/login', 3000);
-    } else if(auth.isLoggedIn && pathname === '/login') {
+    } else if (auth.isLoggedIn && pathname === '/login') {
       this.transferPage('/', 0);
     }
   }
@@ -40,38 +44,47 @@ class App extends Component {
   render() {
     const { auth } = this.props;
 
-    const MatchWithAuth = ({ component: Component, ...rest }) => (
-      <Match {...rest} render={props => {
-        if(auth.pathname && props.pathname !== auth.pathname){
-          this.props.dispatch(fetchLoginState({ pathname: props.pathname, auth: auth }));
-        }
-        return (auth.isLoggedIn && rest.private) || !rest.private ?
-          <Component {...props}/> : <Dialog />;
-      }}/>
+    const RouteWithAuth = ({ component: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={props => {
+          if (auth.pathname && props.location.pathname !== auth.pathname) {
+            this.props.dispatch(
+              fetchLoginState({ pathname: props.location.pathname, auth: auth })
+            );
+          }
+          return (auth.isLoggedIn && rest.private) || !rest.private ? (
+            <Component {...props} />
+          ) : (
+            <Dialog />
+          );
+        }}
+      />
     );
 
     return (
       <div className="wrapper">
-        <BrowserRouter>
-          {({router, location}) => (
-            <div style={{height: '100%'}}>
-              <MatchWithAuth pattern="/" exactly private component={() => <Private router={router} />}/>
-              <MatchWithAuth pattern="/login"  component={() => <Login router={router} />}/>
-              <MatchWithAuth pattern="/private2" private component={() => <Private2 router={router} />}/>
-            </div>
-          )}
-        </BrowserRouter>
+        <Switch>
+          <RouteWithAuth path="/" exact private component={() => <Private />} />
+          <RouteWithAuth path="/login" exact component={() => <Login />} />
+          <RouteWithAuth
+            path="/private2"
+            exact
+            private
+            component={() => <Private2 />}
+          />
+        </Switch>
         <ul className="bg-bubbles">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
+          <li />
         </ul>
       </div>
     );
@@ -83,4 +96,5 @@ App.propTypes = propTypes;
 function select({ auth }) {
   return { auth };
 }
-export default connect(select)(App);
+
+export default withRouter(connect(select)(App));

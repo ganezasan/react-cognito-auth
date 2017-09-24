@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Private2 extends Component {
   render() {
@@ -7,7 +7,9 @@ class Private2 extends Component {
       <div className="container">
         <form className="form">
           <h1>Private2</h1>
-          <Link to='/' className='button'>Private</Link>
+          <Link to="/" className="button">
+            Private
+          </Link>
         </form>
       </div>
     );
