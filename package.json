@@ -15,7 +15,7 @@
     "redux-saga": "^0.14.1"
   },
   "devDependencies": {
-    "create-react-app": "^1.4.0",
+    "create-react-app": "^2.1.5",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.1",
     "prop-types": "^15.5.10",
