@@ -12,7 +12,7 @@
     "redux": "^3.7.2",
     "redux-act": "^1.1.0",
     "redux-logger": "^2.7.4",
-    "redux-saga": "^0.14.1"
+    "redux-saga": "^1.0.4"
   },
   "devDependencies": {
     "create-react-app": "^1.4.0",
