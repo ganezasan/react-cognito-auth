@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "amazon-cognito-identity-js": "^1.19.0",
+    "amazon-cognito-identity-js": "^3.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-loading": "^0.0.9",
